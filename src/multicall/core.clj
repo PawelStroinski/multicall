@@ -28,7 +28,7 @@
     - the dispatch values are the same;
     - both calls are registered from the same namespace."
   [multifn name? dispatch-val & fn-tail]
-  (let [name (if (symbol? name?) name? 'multicall.core/default)
+  (let [name (if (symbol? name?) name? 'multicall-core--no-name)
         dispatch-val' (if (symbol? name?) dispatch-val name?)
         fn-tail' (if (symbol? name?) fn-tail (cons dispatch-val fn-tail))]
     `(defcall* (var ~multifn) '~name ~dispatch-val' (fn ~name ~@fn-tail'))))
