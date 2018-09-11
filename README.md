@@ -22,6 +22,8 @@ Hierarchies are not supported.
 Registered call inspection/removal can be done manually by accessing the
 registry atom but no functions are provided.
 
+The default case always is a no-op.
+
 ## License
 
 Copyright © 2018 Paweł Stroiński
