@@ -17,7 +17,8 @@
 (defn defcall*
   [multifn-var name dispatch-val f]
   (let [id (conj ((juxt :ns :name) (meta multifn-var)) dispatch-val)]
-    (swap! registry assoc-in [id [*ns* name]] f)))
+    (swap! registry assoc-in [id [*ns* name]] f)
+    nil))
 
 (defmacro defcall
   "Like defmethod, but can register multiple calls with the same dispatch value.
