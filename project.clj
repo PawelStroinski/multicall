@@ -1,4 +1,4 @@
-(defproject multicall "0.1.0-alpha2"
+(defproject multicall "0.1.0-alpha3"
   :description "Like multimethods, but can register multiple calls with the same dispatch value."
   :url "https://github.com/PawelStroinski/multicall"
   :license {:name "Eclipse Public License"
