@@ -5,7 +5,11 @@
 (defn multicall*
   [ns name dispatch-fn & args]
   (let [dispatch-val (apply dispatch-fn args)]
-    (for [f (vals (get @registry [ns name dispatch-val]))]
+    (for [f (concat
+              (vals (get @registry [ns name dispatch-val]))
+              (when-let [kns (and (keyword? dispatch-val)
+                               (namespace dispatch-val))]
+                (vals (get @registry [ns name (keyword kns "*")]))))]
       (apply f args))))
 
 (defmacro defmulticall
@@ -25,9 +29,12 @@
   However, a call WILL override a previously registered call if all of the below
   are true:
 
-    - the call names (name? argument) are the same or both omitted;
+    - the call names (the name? argument) are the same or both omitted;
     - the dispatch values are the same;
-    - both calls are registered from the same namespace."
+    - both calls are registered from the same namespace.
+
+  The dispatch-val doesn't have to be a keyword but it can have a form of
+  :your-ns/* which will catch all calls for :your-ns-namespaced keywords."
   [multifn name? dispatch-val & fn-tail]
   (let [name (if (symbol? name?) name? 'multicall-core--no-name)
         dispatch-val' (if (symbol? name?) dispatch-val name?)

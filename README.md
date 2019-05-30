@@ -12,6 +12,14 @@ Like multimethods, but can register multiple calls with the same dispatch value.
     (defcall add with-plus 1 [_ y] (+ 1 y))
     (add 1 2)
     => (3 3)
+    
+    (defmulticall kind identity)
+    (defcall kind :food/olive [_] :fruit)
+    (defcall kind :fruit/* [_] :fruit)
+    (kind :food/olive)
+    => (:fruit)
+    (kind :fruit/apple)
+    => (:fruit)
 
 Please refer to the unit tests for more examples.
 
